@@ -47,20 +47,20 @@ data = 'new update data' #string
 pos = 0 #integer
 mytree.update(pos,data)
 
-# get the root of the tree. returns the root of the tree in hexString format witout 0x
+# Get the root of the tree. Returns the root of the tree in hexString format witout 0x
 mytree.getRoot()
 
-# create proof of inclusion of some data in the position "pos". return an array with the branches needed calculate the root using the data in position "pos". It is assumed that the validator have the root(which is public) and the data at position pos, that wants to validate 
+# create proof of inclusion of some data in the position "pos". Returns an array with the branches needed calculate the root using the data at position "pos". It is assumed that the validator have the root(which is public) and the data at position pos that he/she wants to validate. 
 pos = 0 # integer
 mytree.createProof(pos)
 ```
 
 ## About the proofs
 
-The Figure 1 show a Merkle tree construction. Assume that you are working on a distributed system, where the data is stored in a decentralized fashion (like bitcoin). Assume that you want to test if a piece of imfromation **A** is included in the decentralized database. If you have a copy of the data you do not need a merkle tree. but is you are a 'light' client, that uses the data but do not store it, you need to ask to other nodes. Remember that you do not trust the other nodes and the only pieces of infromation that you have is **A** (that you want to verify) and the root (the top block of the tree). 
+Figure 1 show a Merkle tree construction. Assume that you are working on a distributed system, where the data is stored in a decentralized fashion (like bitcoin). Assume that you want to test if a piece of information **A** is included in the decentralized database. If you have a copy of the data you do not need a Merkle Tree, but if you are a 'light' client, that uses the data but does not store it, you need to ask to other nodes to verify data that is sent to you. Remember that you do not trust the other nodes and the only pieces of information that you have is **A** (that you want to verify) and the root (the top block of the tree). 
 
-When you ask to the node: is **A** included in the database the node generate a proof, that is fromed by the branches that you need to calculate the root (the root is public)
+When you ask to the node: is **A** included in the database the node generates a proof, that is formed by the branches that you need to calculate the root (the root is public)
 
-MerkleTreePy produces this proof using `createProof(pos)`. For **A** you should use createProof(0), which will return a list containing the two elements, the green boxes in the Figure 1. You can then use this to generate the root doing: **sha256(sha256(sha256(A),proof[0]),proof[1])** this should be equal to the value of the root, if not **A** is not in the database.
+MerkleTreePy produces this proof using `createProof(pos)`. For **A** you should use createProof(0), which will return a list containing the two elements, the green boxes in Figure 1. You can then use this to generate the root doing: **sha256(sha256(sha256(A),proof[0]),proof[1])** this should be equal to the value of the root, if not,  **A** is not in the database.
 
 ![Figure 1](https://github.com/jfdelgad/MerkleTreePy/blob/master/merkletree.png)
